@@ -1,0 +1,32 @@
+# Base44 development environment for the Fluxo Digital static site.
+#
+# This project is a plain static site (index.html + styles.css + app.js + assets):
+# there is nothing to build or compile, so a small static file server serves the
+# bind-mounted repository straight from disk. Every source edit is visible on the
+# next page load; there is no live-reload dev server for a static site, so the
+# preview is refreshed with reload_preview after edits.
+#
+# The sandbox checkout is only readable by root (mode 700), so the server runs as
+# root inside the container. No credentials or external services are required to
+# boot the app; the contact form posts to FormSubmit from the browser.
+
+services:
+  web:
+    image: python:3.12-alpine
+    labels:
+      base44.project: "Fluxo Digital"
+      base44.kind: "web"
+      base44.port: "3000"
+    working_dir: /app
+    command: ["python", "-m", "http.server", "3000", "--bind", "0.0.0.0"]
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app:ro
+    restart: on-failure
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://127.0.0.1:3000/').read(1)\" || exit 1"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 5s

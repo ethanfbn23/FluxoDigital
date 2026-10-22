@@ -1,0 +1,15 @@
+FLUXO DIGITAL - CODIGO DO SITE
+
+Extraia todo o conteudo do ZIP em D:\FluxoDigital\CFluxo.
+
+Arquivos principais:
+index.html - estrutura e conteudo
+styles.css - estilos e layout responsivo
+app.js - menu e formulario
+assets - imagens
+
+Para editar, abra a pasta CFluxo no Visual Studio Code.
+Para testar, utilize um servidor local, como a extensao Live Server.
+O formulario utiliza o FormSubmit e depende de conexao com a internet.
+
+Alterar esta copia no computador nao atualiza automaticamente o site publicado.
